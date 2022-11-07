@@ -5,7 +5,9 @@ const desktopMenu=document.querySelector(".desktop-menu");
 const mobileMenu=document.querySelector(".mobile-menu");
 const burgerMenu=document.querySelector(".menuImg");
 const shoppingCartButton=document.querySelector(".nav_bar-ShoppingCart");
-const shoppingCart = document.querySelector(".product-detail");
+const shoppingCart = document.querySelector("#shoppingCartDetail");
+const prouductDetail = document.querySelector("#productDetail");
+const productDetailClose = document.querySelector(".product-detail-close");
 
 function toggleElement(elemento){
     elemento.classList.toggle("inactive");
@@ -17,28 +19,22 @@ navEmail.addEventListener("click",execute=>
     if (!isShoppingCartClosed) {
         shoppingCart.classList.add("inactive");           
     }
-    let isDesktopMenuClosed=desktopMenu.classList.contains("inactive");
-    if (isDesktopMenuClosed && !isShoppingCartClosed) {
-        toggleElement(desktopMenu);
-    }
-    else if(isShoppingCartClosed){
-        toggleElement(desktopMenu);
-    }       
-});
-
-navEmail.addEventListener("mouseover",exec=>{
-    navEmail.style.color ="var(--HospitalGreen)"
-});
-
-navEmail.addEventListener("mouseout",exe=>{
-    navEmail.style.color ="var(--veryLightPink)"  
+    let isProductDetailClosed=prouductDetail.classList.contains("inactive");
+    if (!isProductDetailClosed) {
+        prouductDetail.classList.add("inactive");           
+    }  
+    toggleElement(desktopMenu);      
 });
 
 burgerMenu.addEventListener("click",execute=>
 {
-    let isShoppingCart=shoppingCart.classList.contains("inactive");
-    if (!isShoppingCart) {
+    let isShoppingCartClosed=shoppingCart.classList.contains("inactive");
+    if (!isShoppingCartClosed) {
         shoppingCart.classList.add("inactive");           
+    }
+    let isProductDetailClosed=prouductDetail.classList.contains("inactive");
+    if (!isProductDetailClosed) {
+        prouductDetail.classList.add("inactive");           
     }      
     toggleElement(mobileMenu);
 });
@@ -48,8 +44,20 @@ shoppingCartButton.addEventListener("click",execute=>
     let isMobileMenuClosed=mobileMenu.classList.contains("inactive");
     if (!isMobileMenuClosed) {
         mobileMenu.classList.add("inactive");           
-    }    
+    }
+    let isProductDetailClosed=prouductDetail.classList.contains("inactive");
+    if (!isProductDetailClosed) {
+        prouductDetail.classList.add("inactive");           
+    }
+    let isDesktopMenuClosed=desktopMenu.classList.contains("inactive");
+    if (!isDesktopMenuClosed) {  
+         desktopMenu.classList.add("inactive");
+     }     
     toggleElement(shoppingCart);
+});
+
+productDetailClose.addEventListener("click",exec=>{
+    prouductDetail.classList.add("inactive");
 });
 
 function createDynamicTestProducts(){
@@ -71,7 +79,22 @@ function setDynamicTestProductsToDOM(productList){
         divProductCard.classList.add("product-card");  
         let imgProduct=document.createElement("img");
         imgProduct.classList.add("product-img");
-        imgProduct.setAttribute("src",element.img);   
+        imgProduct.setAttribute("src",element.img);
+        imgProduct.addEventListener("click",exec=>{
+            let isDesktopMenuClosed=desktopMenu.classList.contains("inactive");
+            if (!isDesktopMenuClosed) {  
+                 desktopMenu.classList.add("inactive");
+             }
+             let isShoppingCartClosed=shoppingCart.classList.contains("inactive");
+             if (!isShoppingCartClosed) {
+                 shoppingCart.classList.add("inactive");           
+             }
+             let isMobileMenuClosed=mobileMenu.classList.contains("inactive");
+             if (!isMobileMenuClosed) {
+                 mobileMenu.classList.add("inactive");           
+             }     
+            prouductDetail.classList.remove("inactive");
+        });   
         let divProductInfo=document.createElement("div");
         divProductInfo.classList.add("product-info");  
         let divForDetails=document.createElement("div");  
@@ -95,3 +118,7 @@ window.addEventListener("load",execute=>
 {
     setDynamicTestProductsToDOM(createDynamicTestProducts());
 })
+
+
+
+

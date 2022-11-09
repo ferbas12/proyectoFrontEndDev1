@@ -117,7 +117,9 @@ function setDynamicTestProductsToDOM(productList){
 window.addEventListener("load",execute=>
 {
     setDynamicTestProductsToDOM(createDynamicTestProducts());
-})
+});
+
+
 
 
 
